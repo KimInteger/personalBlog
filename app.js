@@ -31,6 +31,10 @@ function connectErr(res){
   res.end("서버 연결 오류");
 }
 
+const fileUtills = {
+  
+};
+
 const template = function makeTemplate(title,content) {
 const html =`
 <!DOCTYPE html>
