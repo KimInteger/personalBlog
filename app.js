@@ -32,7 +32,28 @@ function connectErr(res){
 }
 
 const fileUtills = {
-  
+  getFilepath : function(url){
+    let filePath = '';
+    if(url === '/'){
+      filePath = './public/index.html';
+    } else if (url.startsWith('/img')) {
+      filePath = './public/img' + url;
+    } else if (url.startsWith('/2024')){
+      filePath = './public/writeFile' + url;
+    } else {
+      filePath = './public' + url;
+    }
+    return filePath;
+  },
+
+  getExtention : function(filePath){
+    let ext = path.extname(filePath);
+    return ext.toLowerCase();
+  },
+
+  getContentType : function(ext){
+    
+  }
 };
 
 const template = function makeTemplate(title,content) {
