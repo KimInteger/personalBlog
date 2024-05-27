@@ -1,0 +1,11 @@
+{
+  "name": "project20firstblog",
+  "version": "1.0.0",
+  "description": "\"블로그스켈레톤\"",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "김정수",
+  "license": "MIT"
+}
