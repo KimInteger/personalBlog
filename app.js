@@ -146,8 +146,6 @@ const server = http.createServer((req,res)=>{
 
   let contentType = fileUtills.getContentType(ext);
   if(req.method === 'GET'){
-
-
     if(req.url === url){
       fs.readFile(filePath, (err,data)=>{
         if(err){
@@ -175,7 +173,6 @@ const server = http.createServer((req,res)=>{
         const title = parsedData.title;
         const content = parsedData.content;
         let convertData = template(title,content);
-        console.log(typeof(convertData));
         
         let nowDate = today();
 
