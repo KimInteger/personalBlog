@@ -136,6 +136,15 @@ const server = http.createServer((req,res)=>{
   console.log(req.url);
   let makeH = htmlUrl(req.url);
   if(req.method === 'GET'){
+    let url = req.url;
+
+    let filePath = fileUtills.getFilepath(url);
+
+    let ext = fileUtills.getExtention(filePath);
+    
+    let contentType = fileUtills.getContentType(ext);
+
+
     if(req.url === '/'){
       fs.readFile('./public/index.html', (err,data)=>{
         if(err){
