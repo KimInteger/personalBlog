@@ -127,7 +127,7 @@ let liTag ='';
 const server = http.createServer((req,res)=>{
   // ? 어디서 문제가 생겼는지 잡아내기 위한 console.log(req.url)
   console.log(req.url);
-  let makeH = htmlUrl(req.url);
+  
   let url = req.url;
 
   let filePath = fileUtills.getFilepath(url);
