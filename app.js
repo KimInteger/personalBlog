@@ -52,8 +52,17 @@ const fileUtills = {
   },
 
   getContentType : function(ext){
-    
+
   }
+};
+
+const mimeType = {
+  '.html' : 'text/html; charset=UTF-8',
+  '.css' : 'text/css; charset-UTF-8',
+  '.js' : 'application/javascript; charset=UTF-8',
+  '.json' : 'application/json; charset=UTF-8',
+  '.ico' : 'img/x-icon',
+  '.png' : 'img/png'
 };
 
 const template = function makeTemplate(title,content) {
