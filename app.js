@@ -141,53 +141,19 @@ const server = http.createServer((req,res)=>{
     let filePath = fileUtills.getFilepath(url);
 
     let ext = fileUtills.getExtention(filePath);
-    
+
     let contentType = fileUtills.getContentType(ext);
 
 
-    if(req.url === '/'){
-      fs.readFile('./public/index.html', (err,data)=>{
+    if(req.url === url){
+      fs.readFile(filePath, (err,data)=>{
         if(err){
           connectErr(res);
         }
-        res.writeHead(200,{"Content-Type":"text/html; charset=UTF-8"});
+        res.writeHead(200,{"Content-Type":contentType});
         res.end(data);
       });
-    } else if (req.url ==='/img/icons8-bear-full-body-16.png') {
-      fs.readFile('./public/img/icons8-bear-full-body-16.png', (err,data)=>{
-        if(err){
-          connectErr(res);
-        }
-        res.writeHead(200,{"Content-Type":"img/png"});
-        res.end(data);
-      });
-    } else if(req.url ==='/script.js') {
-      fs.readFile('./public/script.js',(err,data)=>{
-        if(err){
-          connectErr(res);
-        }
-        res.writeHead(200,{"Content-Type":"application/javascript; charset=UTF-8"});
-        res.end(data);
-      });
-    } else if (req.url.startsWith('/2024')) {
-      fs.readFile(makeH, (err,data)=>{
-        if(err){
-          connectErr(res);
-        }
-        res.writeHead(200,{"Content-Type":"text/html; charset=UTF-8"});
-        res.end(data);
-      });
-    } else if (req.url === '/index.html') {
-      fs.readFile('./public/index.html', (err,data)=>{
-        if(err){
-          connectErr(res);
-        }
-        res.writeHead(200,{"Content-Type":"text/html; charset=UTF-8"});
-        res.end(data);
-      });
-    } else if (req.url === '/favicon.ico') {
-      return;
-    } else {
+    }  else {
       notFound(res);
     }
   } else if (req.method === 'POST'){
