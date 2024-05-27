@@ -21,6 +21,11 @@ function today(){
   return today;
 }
 
+function notFound(res){
+  res.writeHead(404, {"Content-Type":"text/plain; charset=UTF-8"});
+  res.end('페이지를 찾을 수 없습니다.');
+}
+
 const template = function makeTemplate(title,content) {
 const html =`
 <!DOCTYPE html>
