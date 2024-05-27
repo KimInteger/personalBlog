@@ -99,8 +99,7 @@ const server = http.createServer((req,res)=>{
     if(req.url === '/'){
       fs.readFile('./public/index.html', (err,data)=>{
         if(err){
-          res.writeHead(500,{"Content-Type":"text/plain; charset=UTF-8"});
-          res.end("서버 연결 오류");
+          connectErr(res);
         }
         res.writeHead(200,{"Content-Type":"text/html; charset=UTF-8"});
         res.end(data);
@@ -108,8 +107,7 @@ const server = http.createServer((req,res)=>{
     } else if (req.url ==='/img/icons8-bear-full-body-16.png') {
       fs.readFile('./public/img/icons8-bear-full-body-16.png', (err,data)=>{
         if(err){
-          res.writeHead(500,{"Content-Type":"text/plain; charset=UTF-8"});
-          res.end("서버 연결 오류");
+          connectErr(res);
         }
         res.writeHead(200,{"Content-Type":"img/png"});
         res.end(data);
@@ -117,8 +115,7 @@ const server = http.createServer((req,res)=>{
     } else if(req.url ==='/script.js') {
       fs.readFile('./public/script.js',(err,data)=>{
         if(err){
-          res.writeHead(500,{"Content-Type":"text/plain; charset=UTF-8"});
-          res.end("서버 연결 오류");
+          connectErr(res);
         }
         res.writeHead(200,{"Content-Type":"application/javascript; charset=UTF-8"});
         res.end(data);
@@ -126,8 +123,7 @@ const server = http.createServer((req,res)=>{
     } else if (req.url.startsWith('/2024')) {
       fs.readFile(makeH, (err,data)=>{
         if(err){
-          res.writeHead(500,{"Content-Type":"text/plain; charset=UTF-8"});
-          res.end("서버 연결 오류");
+          connectErr(res);
         }
         res.writeHead(200,{"Content-Type":"text/html; charset=UTF-8"});
         res.end(data);
@@ -135,8 +131,7 @@ const server = http.createServer((req,res)=>{
     } else if (req.url === '/index.html') {
       fs.readFile('./public/index.html', (err,data)=>{
         if(err){
-          res.writeHead(500,{"Content-Type":"text/plain; charset=UTF-8"});
-          res.end("서버 연결 오류");
+          connectErr(res);
         }
         res.writeHead(200,{"Content-Type":"text/html; charset=UTF-8"});
         res.end(data);
@@ -177,8 +172,7 @@ const server = http.createServer((req,res)=>{
           }
           fs.readFile('./public/index.html', (err,data)=>{
             if(err){
-              res.writeHead(500,{"Content-Type":"text/plain; charset=UTF-8"});
-              res.end("서버 연결 오류");
+              connectErr(res);
             }
             res.writeHead(200,{"Content-Type":"text/html; charset=UTF-8"});
             res.end(data);
