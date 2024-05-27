@@ -27,9 +27,21 @@ function notFound(res){
 }
 
 function connectErr(res){
-  res.writeHead(500,{"Content-Type":"text/plain; charset=UTF-8"});
-  res.end("서버 연결 오류");
+  res.statusCode = 500;
+  res.setHeader("Content-Type","text/plain; charset=UTF-8");
+  res.write('서버 연결 오류');
+  res.end();
 }
+
+const mimeType = {
+  '.html' : 'text/html; charset=UTF-8',
+  '.css' : 'text/css; charset-UTF-8',
+  '.js' : 'application/javascript; charset=UTF-8',
+  '.json' : 'application/json; charset=UTF-8',
+  '.ico' : 'img/x-icon',
+  '.png' : 'img/png'
+};
+
 
 const fileUtills = {
   getFilepath : function(url){
@@ -60,15 +72,6 @@ const fileUtills = {
     }
     return ct;
   } 
-};
-
-const mimeType = {
-  '.html' : 'text/html; charset=UTF-8',
-  '.css' : 'text/css; charset-UTF-8',
-  '.js' : 'application/javascript; charset=UTF-8',
-  '.json' : 'application/json; charset=UTF-8',
-  '.ico' : 'img/x-icon',
-  '.png' : 'img/png'
 };
 
 const template = function makeTemplate(title,content) {
@@ -135,25 +138,30 @@ const server = http.createServer((req,res)=>{
   // ? 어디서 문제가 생겼는지 잡아내기 위한 console.log(req.url)
   console.log(req.url);
   let makeH = htmlUrl(req.url);
+  let url = req.url;
+
+  let filePath = fileUtills.getFilepath(url);
+
+  let ext = fileUtills.getExtention(filePath);
+
+  let contentType = fileUtills.getContentType(ext);
   if(req.method === 'GET'){
-    let url = req.url;
-
-    let filePath = fileUtills.getFilepath(url);
-
-    let ext = fileUtills.getExtention(filePath);
-
-    let contentType = fileUtills.getContentType(ext);
 
 
     if(req.url === url){
       fs.readFile(filePath, (err,data)=>{
         if(err){
           connectErr(res);
+          return err;
         }
-        res.writeHead(200,{"Content-Type":contentType});
-        res.end(data);
+        res.statusCode = 200;
+        res.setHeader("Content-Type", contentType);
+        res.write(data);
+        res.end();
       });
-    }  else {
+    } else if(req.url === '/favicon.ico'){
+      return;
+    } else {
       notFound(res);
     }
   } else if (req.method === 'POST'){
