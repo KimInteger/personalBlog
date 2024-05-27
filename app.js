@@ -52,8 +52,14 @@ const fileUtills = {
   },
 
   getContentType : function(ext){
-
-  }
+    let ct = '';
+    if(mimeType.hasOwnProperty(ext)){
+      ct = mimeType[ext];
+    } else {
+      ct = 'text/plain; charset=UTF-8';
+    }
+    return ct;
+  } 
 };
 
 const mimeType = {
