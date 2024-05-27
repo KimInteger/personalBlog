@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+  <html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이것은블로그입니다.</title>
+    <link rel="icon" href="./img/icons8-bear-full-body-16.png">
+  </head>
+  <body>
+    <form action="/create" method="POST" id="form">
+      <label for="title">제목</label><br>
+      <input type="text" id="title" name="title"><br><br>
+      <label for="content">내용</label><br>
+      <textarea name="content" id="content" cols="25" rows="15"></textarea><br><br>
+      <button id="send" type="submit">글쓰기</button>
+    </form>
+    <div>
+      <h2>게시판</h2>
+      <ul id="board">
+      <li><a href="2024-05-24-17-46-11.html">2024-05-24-17-46-11</a></li><li><a href="2024-05-24-17-46-16.html">2024-05-24-17-46-16</a></li><li><a href="2024-05-24-17-46-25.html">2024-05-24-17-46-25</a></li>
+      </ul>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+  </html>
