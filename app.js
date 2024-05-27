@@ -122,16 +122,6 @@ const mainTemp = function makeMain(content){
   return mainHtml;
 };
 
-const htmlUrl = function(url){
-  let path = ''; 
-  if(url.startsWith('/2024')){
-    path = './public/writeFile' + url;
-  } else {
-    return;
-  }
-  return path;
-}
-
 let liTag ='';
 
 const server = http.createServer((req,res)=>{
