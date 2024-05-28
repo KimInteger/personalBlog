@@ -131,6 +131,8 @@ const mainTemp = function makeMain(content){
   return mainHtml;
 };
 
+// ! 폴더를 읽어내서 변수에 할당하기.
+
 // ! html에 a태그 관련 변수.
 
 let liTag ='';
