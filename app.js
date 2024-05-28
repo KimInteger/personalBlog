@@ -61,7 +61,7 @@ const fileUtills = {
     } else {
       filePath = './public' + url;
     }
-    return filePath;
+    return decodeURI(filePath);
   },
 
   getExtention : function(filePath){
