@@ -140,10 +140,13 @@ fs.readdir(path.join(__dirname,'public','writeFile'),'utf8',(err,data)=>{
   if(err){
     console.error("에러가 발생했습니다!" ,err);
   }
-  folderData = data.toString();
-  let listData = folderData.split('.html,');
-  console.log(listData);
-
+  folderData = data;
+  for(let i = 0; i < folderData.length; i++){
+    if(folderData[i].includes('.html')){
+      folderData[i] = folderData[i].split('.html')[0];
+      liTag += `<li><a href="${folderData[i]}.html">${folderData[i]}</a></li>` 
+    }
+  }
 });
 
 
