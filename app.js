@@ -133,17 +133,22 @@ const mainTemp = function makeMain(content){
 
 // ! 폴더를 읽어내서 변수에 할당하기.
 let folderData = [];
+
+let liTag ='';
+
 fs.readdir(path.join(__dirname,'public','writeFile'),'utf8',(err,data)=>{
   if(err){
     console.error("에러가 발생했습니다!" ,err);
   }
-  folderData = data;
+  folderData = data.toString();
+  let listData = folderData.split('.html,');
+  console.log(listData);
+
 });
 
 
 // ! html에 a태그 관련 변수.
 
-let liTag ='';
 
 const server = http.createServer((req,res)=>{
   // ? 어디서 문제가 생겼는지 잡아내기 위한 console.log(req.url)
