@@ -132,12 +132,12 @@ const mainTemp = function makeMain(content){
 };
 
 // ! 폴더를 읽어내서 변수에 할당하기.
-let folderData;
-fs.readdir(path.join(__dirname,'public','writeFile'),(err,data)=>{
+let folderData = [];
+fs.readdir(path.join(__dirname,'public','writeFile'),'utf8',(err,data)=>{
   if(err){
     console.error("에러가 발생했습니다!" ,err);
   }
-  folderData = data;
+  console.log(typeof(data));
 });
 
 console.log(folderData);
