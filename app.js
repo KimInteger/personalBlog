@@ -8,6 +8,8 @@ const qs = require('node:querystring');
 
 const path = require('node:path');
 
+// ! 기점을 잡기위한 날짜 new Date매서드
+
 function today(){
   let today = '';
   const date = new Date;
@@ -21,6 +23,9 @@ function today(){
   return today;
 }
 
+// ! server연결을 원활하게 하기 위한 기명함수 제작.
+
+
 function notFound(res){
   res.writeHead(404, {"Content-Type":"text/plain; charset=UTF-8"});
   res.end('페이지를 찾을 수 없습니다.');
@@ -33,6 +38,8 @@ function connectErr(res){
   res.end();
 }
 
+// ! contentType을 할당하기 위한 변수 mimeType을 초기화하고 할당.
+
 const mimeType = {
   '.html' : 'text/html; charset=UTF-8',
   '.css' : 'text/css; charset-UTF-8',
@@ -41,7 +48,6 @@ const mimeType = {
   '.ico' : 'img/x-icon',
   '.png' : 'img/png'
 };
-
 
 const fileUtills = {
   getFilepath : function(url){
@@ -73,6 +79,9 @@ const fileUtills = {
     return ct;
   } 
 };
+
+
+// ! html템플릿 관련 변수
 
 const template = function makeTemplate(title,content) {
 const html =`
@@ -121,6 +130,8 @@ const mainTemp = function makeMain(content){
   </html>`;
   return mainHtml;
 };
+
+// ! html에 a태그 관련 변수.
 
 let liTag ='';
 
