@@ -137,7 +137,8 @@ fs.readdir(path.join(__dirname,'public','writeFile'),'utf8',(err,data)=>{
   if(err){
     console.error("에러가 발생했습니다!" ,err);
   }
-  folderData = data;
+  let listData = data.toString();
+  folderData = listData.split(',');
   console.log(folderData);
   console.log(typeof(folderData));
 });
@@ -152,7 +153,10 @@ const server = http.createServer((req,res)=>{
   console.log(req.url);
 
   console.log(folderData);
-  
+  console.log(typeof(folderData));
+  console.log(folderData[0]);
+  console.log(folderData[1]);
+  console.log(folderData[2]);
   let url = req.url;
 
   let filePath = fileUtills.getFilepath(url);
