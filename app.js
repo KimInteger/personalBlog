@@ -132,6 +132,11 @@ const mainTemp = function makeMain(content){
 };
 
 // ! 폴더를 읽어내서 변수에 할당하기.
+let folderData;
+fs.readdir(path.join(__dirname,'writeFile'),(err,data)=>{
+
+});
+
 
 // ! html에 a태그 관련 변수.
 
