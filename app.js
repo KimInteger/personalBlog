@@ -137,10 +137,11 @@ fs.readdir(path.join(__dirname,'public','writeFile'),'utf8',(err,data)=>{
   if(err){
     console.error("에러가 발생했습니다!" ,err);
   }
-  console.log(typeof(data));
+  folderData = data;
+  console.log(folderData);
+  console.log(typeof(folderData));
 });
 
-console.log(folderData);
 
 // ! html에 a태그 관련 변수.
 
@@ -149,6 +150,8 @@ let liTag ='';
 const server = http.createServer((req,res)=>{
   // ? 어디서 문제가 생겼는지 잡아내기 위한 console.log(req.url)
   console.log(req.url);
+
+  console.log(folderData);
   
   let url = req.url;
 
