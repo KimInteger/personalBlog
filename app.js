@@ -224,7 +224,11 @@ const server = http.createServer((req,res)=>{
       });
     } else if (req.url === '/delete') {
       let needData = req.headers.referer.split('/')[3];
-      console.log(needData);
+      fs.unlink(path.join(__dirname,'public','writeFile',`/${needData}`), (err)=>{
+        if(err){
+          console.error(err);
+        }
+      });
     } else {
       notFound(res);
     }
