@@ -222,6 +222,8 @@ const server = http.createServer((req,res)=>{
           });
         });
       });
+    } else {
+      notFound(res);
     }
   } else {
     notFound(res);
