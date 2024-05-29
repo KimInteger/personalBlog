@@ -158,7 +158,6 @@ fs.readdir(path.join(__dirname,'public','writeFile'),'utf8',(err,data)=>{
 
 const server = http.createServer((req,res)=>{
   // ? 어디서 문제가 생겼는지 잡아내기 위한 console.log(req.url)
-  console.log(req.url);
 
   let url = req.url;
 
@@ -185,6 +184,8 @@ const server = http.createServer((req,res)=>{
       notFound(res);
     }
   } else if (req.method === 'POST'){
+    console.log(req.url);
+
     if(req.url === '/create'){
       let body = '';
       req.on('data', (chunk)=>{
