@@ -227,8 +227,9 @@ const server = http.createServer((req,res)=>{
       fs.unlink(path.join(__dirname,'public','writeFile',`/${needData}`), (err)=>{
         if(err){
           console.error(err);
-        }
+        } 
       });
+      
     } else {
       notFound(res);
     }
