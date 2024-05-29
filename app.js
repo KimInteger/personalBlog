@@ -96,6 +96,9 @@ const html =`
     <h1>${title}</h1>
     <h3>${content}</h3>
     <a href="../index.html">홈으로 돌아가기</a>
+    <form action="/delete" method="POST">
+      <button type="submit">삭제<button>
+    </form>
   </body>
 </html>
 `
