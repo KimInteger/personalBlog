@@ -222,6 +222,9 @@ const server = http.createServer((req,res)=>{
           });
         });
       });
+    } else if (req.url === '/delete') {
+      let needData = req.headers.referer.split('/')[3];
+      console.log(needData);
     } else {
       notFound(res);
     }
