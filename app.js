@@ -202,24 +202,12 @@ const server = http.createServer((req,res)=>{
         fs.writeFile(path.join(__dirname,'public','writeFile',`${nowDate}.html`),convertData,(err)=>{
           if(err){
             console.error("에러가 발생했습니다 에러 코드 : ", err);
-          }
-        });
-
-        liTag += `<li><a href="${nowDate}.html">${nowDate}</a></li>`
-
-        let mainIndex = mainTemp(liTag);
-
-        fs.writeFile(path.join(__dirname,'public','index.html'), mainIndex, (err)=>{
-          if(err){
-            console.error("에러가 발생했습니다. 에러 코드 : ", err);
-          }
-          fs.readFile('./public/index.html', (err,data)=>{
-            if(err){
-              connectErr(res);
-            }
+          } else {
+            liTag += `<li><a href="${nowDate}.html">${nowDate}</a></li>`
+            let mainIndex = mainTemp(liTag);
             res.writeHead(200,{"Content-Type":"text/html; charset=UTF-8"});
-            res.end(data);
-          });
+            res.end(mainIndex);
+          }
         });
       });
     } else if (req.url === '/delete') {
