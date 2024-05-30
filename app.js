@@ -96,8 +96,11 @@ const html =`
   <body>
     <h1>${title}</h1>
     <h3>${content}</h3>
-    <a href="../index.html">홈으로 돌아가기</a>
-    <form action="/delete" method="POST">
+    <a href="../index.html">홈으로 돌아가기</a><br><br>
+    <form action="/modify" method="POST" style="display: inline">
+      <button type="submit">수정</button>
+    </form>
+    <form action="/delete" method="POST" style="display: inline">
       <button type="submit">삭제</button>
     </form>
   </body>
@@ -124,7 +127,7 @@ const mainTemp = function makeMain(content){
       <button id="send" type="submit">글쓰기</button>
     </form>
     <div>
-      <h2>게시판</h2>
+      <h2>패치노트</h2>
       <ul id="board">
       ${content}
       </ul>
@@ -135,10 +138,34 @@ const mainTemp = function makeMain(content){
   return mainHtml;
 };
 
+const modiTemp =
+`<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글 수정</title>
+  </head>
+  <body>
+    <form action="/reWrite" method="POST">
+      <label for="title">제목</label><br>
+      <input type="text" id="title" name="title"><br><br>
+      <label for="content">내용</label><br>
+      <textarea name="content" id="content" cols="25" rows="15"></textarea><br><br>
+      <button id="send" type="submit">글쓰기</button>
+    </form>
+  </body>
+</html>`;
+
+
 // ! 폴더를 읽어내서 변수에 할당하기.
+
 let folderData = [];
 
 let liTag ='';
+
+// ! 수정을 위한 데이터를 잡기 위한 곳
+let modifyUrl = ''
 
 fs.readdir(path.join(__dirname,'public','writeFile'),'utf8',(err,data)=>{
   if(err){
@@ -156,6 +183,7 @@ fs.readdir(path.join(__dirname,'public','writeFile'),'utf8',(err,data)=>{
 
 
 const server = http.createServer((req,res)=>{
+  console.log(req.url);
 
   let url = req.url;
 
@@ -236,6 +264,48 @@ const server = http.createServer((req,res)=>{
         }
       });
 
+    } else if (req.url === '/modify') {
+      modifyUrl = '';
+      modifyUrl = req.headers.referer.split('/')[3]
+      console.log(modifyUrl);
+      res.writeHead(200,{"Content-Type":"text/html; charset=UTF-8"});
+      res.end(modiTemp);
+    } else if (req.url === '/reWrite') {
+      let body = '';
+      req.on('data',(chunk)=>{
+        body += chunk.toString();
+      });
+      req.on('end',()=>{
+        let parsdRewrite = qs.parse(body);
+
+        let rewriteData = template(parsdRewrite.title, parsdRewrite.content);
+        fs.writeFile(path.join(__dirname,'public','writeFile',`${modifyUrl}`),rewriteData,(err)=>{
+          if(err){
+            console.error("에러가 발생했습니다 에러 코드 : ", err);
+          } else {
+            liTag = '';
+            fs.readdir(path.join(__dirname,'public','writeFile'),'utf8',(err,data)=>{
+              if(err){
+                console.error("에러가 발생했습니다!" ,err);
+              }
+              folderData = data;
+
+              for(let i = 0; i < folderData.length; i++){
+                if(folderData[i].includes('.html')){
+                  folderData[i] = folderData[i].split('.html')[0];
+                  liTag += `<li><a href="${folderData[i]}.html">${folderData[i]}</a></li>` 
+                }
+              }
+
+              let mainIndex = mainTemp(liTag);
+              res.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+              res.end(mainIndex);
+
+            });
+          }
+        });
+
+      });
     } else {
       notFound(res);
     }
