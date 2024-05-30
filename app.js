@@ -83,6 +83,7 @@ const fileUtills = {
 
 // ! html템플릿 관련 변수
 
+// * 생성되어 writeFile로 들어가는 html template
 const template = function makeTemplate(title,content) {
 const html =`
 <!DOCTYPE html>
@@ -105,6 +106,7 @@ const html =`
 return html;
 };
 
+// * res.end()로 보여질 화면을 잡아온 index.html의 tempalte
 const mainTemp = function makeMain(content){
   const mainHtml = `<!DOCTYPE html>
   <html lang="ko">
@@ -112,7 +114,6 @@ const mainTemp = function makeMain(content){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이것은블로그입니다.</title>
-    <link rel="icon" href="./img/icons8-bear-full-body-16.png">
   </head>
   <body>
     <form action="/create" method="POST" id="form">
@@ -153,11 +154,8 @@ fs.readdir(path.join(__dirname,'public','writeFile'),'utf8',(err,data)=>{
 });
 
 
-// ! html에 a태그 관련 변수.
-
 
 const server = http.createServer((req,res)=>{
-  // ? 어디서 문제가 생겼는지 잡아내기 위한 console.log(req.url)
 
   let url = req.url;
 
