@@ -99,7 +99,7 @@ const html =`
       <h3>${content}</h3>
       <a href="../index.html">홈으로 돌아가기</a>
       <form action="/delete" method="POST">
-        <button type="button"><a href="../writeField.html" style="color:black; text-decoration:none;">수정</a></button>
+        <button type="button" id="modify">수정</button>
         <button type="submit">삭제</button>
       </form>
     </div>
