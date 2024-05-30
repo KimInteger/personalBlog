@@ -270,6 +270,42 @@ const server = http.createServer((req,res)=>{
       console.log(modifyUrl);
       res.writeHead(200,{"Content-Type":"text/html; charset=UTF-8"});
       res.end(modiTemp);
+    } else if (req.url === '/reWrite') {
+      let body = '';
+      req.on('data',(chunk)=>{
+        body += chunk.toString();
+      });
+      req.on('end',()=>{
+        let parsdRewrite = qs.parse(body);
+
+        let rewriteData = template(parsdRewrite.title, parsdRewrite.content);
+        fs.writeFile(path.join(__dirname,'public','writeFile',`${modifyUrl}.html`),rewriteData,(err)=>{
+          if(err){
+            console.error("에러가 발생했습니다 에러 코드 : ", err);
+          } else {
+            liTag = '';
+            fs.readdir(path.join(__dirname,'public','writeFile'),'utf8',(err,data)=>{
+              if(err){
+                console.error("에러가 발생했습니다!" ,err);
+              }
+              folderData = data;
+
+              for(let i = 0; i < folderData.length; i++){
+                if(folderData[i].includes('.html')){
+                  folderData[i] = folderData[i].split('.html')[0];
+                  liTag += `<li><a href="${folderData[i]}.html">${folderData[i]}</a></li>` 
+                }
+              }
+
+              let mainIndex = mainTemp(liTag);
+              res.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+              res.end(mainIndex);
+
+            });
+          }
+        });
+
+      });
     } else {
       notFound(res);
     }
