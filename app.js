@@ -128,7 +128,7 @@ const mainTemp = function makeMain(content){
       <button id="send" type="submit">글쓰기</button>
     </form>
     <div>
-      <h2>게시판</h2>
+      <h2>패치노트</h2>
       <ul id="board">
       ${content}
       </ul>
@@ -247,7 +247,28 @@ const server = http.createServer((req,res)=>{
       });
       req.on('end', ()=>{
         let modifyParse = qs.parse(body);
-        console.log(modifyParse);
+        
+        let modifyTemp = template(modifyParse.title,modifyParse.content);
+
+        let modifyReferer = req.headers.referer.split('/')[3];
+
+        console.log(modifyReferer);
+
+        fs.writeFile(`./public/writeFile/${modifyReferer}`, modifyTemp,(err)=>{
+          if (err) {
+            console.error(err);
+          } else {
+            console.log(modifyReferer);
+            fs.readFile(path.join(__dirname,'public','writeFile',modifyReferer),(err,data)=>{
+              if(err){
+                connectErr(res);
+              } else {
+                res.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                res.end(data);
+              }
+            });
+          }
+        })
       });
     } else {
       notFound(res);
