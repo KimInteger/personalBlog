@@ -96,12 +96,12 @@ const html =`
   <body>
     <h1>${title}</h1>
     <h3>${content}</h3>
-    <a href="../index.html">홈으로 돌아가기</a>
-    <form action="/delete" method="POST">
-      <button type="submit">삭제</button>
-    </form>
-    <form action="/modify" method="POST">
+    <a href="../index.html">홈으로 돌아가기</a><br><br>
+    <form action="/modify" method="POST" style="display: inline">
       <button type="submit">수정</button>
+    </form>
+    <form action="/delete" method="POST" style="display: inline">
+      <button type="submit">삭제</button>
     </form>
   </body>
 </html>
