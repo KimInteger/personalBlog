@@ -98,7 +98,7 @@ const html =`
     <h3>${content}</h3>
     <a href="../index.html">홈으로 돌아가기</a>
     <form action="/delete" method="POST">
-    <button type="button"><a href="../writeField.html" style="color:black; text-decoration:none;">수정</a></button>
+      <button type="button"><a href="../writeField.html" style="color:black; text-decoration:none;">수정</a></button>
       <button type="submit">삭제</button>
     </form>
   </body>
@@ -237,6 +237,15 @@ const server = http.createServer((req,res)=>{
         }
       });
 
+    } else if (req.url === '/modify') {
+      let body = '';
+      req.on('data', (chunk)=>{
+        body += chunk.toString();
+      });
+      req.on('end', ()=>{
+        let modifyParse = qs.parse(body);
+        console.log(modifyParse);
+      });
     } else {
       notFound(res);
     }
