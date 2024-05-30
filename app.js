@@ -279,7 +279,7 @@ const server = http.createServer((req,res)=>{
         let parsdRewrite = qs.parse(body);
 
         let rewriteData = template(parsdRewrite.title, parsdRewrite.content);
-        fs.writeFile(path.join(__dirname,'public','writeFile',`${modifyUrl}.html`),rewriteData,(err)=>{
+        fs.writeFile(path.join(__dirname,'public','writeFile',`${modifyUrl}`),rewriteData,(err)=>{
           if(err){
             console.error("에러가 발생했습니다 에러 코드 : ", err);
           } else {
