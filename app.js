@@ -94,13 +94,16 @@ const html =`
     <title>${title}</title>
   </head>
   <body>
-    <h1>${title}</h1>
-    <h3>${content}</h3>
-    <a href="../index.html">홈으로 돌아가기</a>
-    <form action="/delete" method="POST">
-      <button type="button"><a href="../writeField.html" style="color:black; text-decoration:none;">수정</a></button>
-      <button type="submit">삭제</button>
-    </form>
+    <div id="root">
+      <h1>${title}</h1>
+      <h3>${content}</h3>
+      <a href="../index.html">홈으로 돌아가기</a>
+      <form action="/delete" method="POST">
+        <button type="button"><a href="../writeField.html" style="color:black; text-decoration:none;">수정</a></button>
+        <button type="submit">삭제</button>
+      </form>
+    </div>
+  <script src="./createForm.js"></script>
   </body>
 </html>
 `
