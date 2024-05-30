@@ -98,8 +98,10 @@ const html =`
     <h3>${content}</h3>
     <a href="../index.html">홈으로 돌아가기</a>
     <form action="/delete" method="POST">
-      <button type="button"><a href="../writeField.html" style="color:black; text-decoration:none;">수정</a></button>
       <button type="submit">삭제</button>
+    </form>
+    <form action="/modify" method="POST">
+      <button type="submit">수정</button>
     </form>
   </body>
 </html>
@@ -125,7 +127,7 @@ const mainTemp = function makeMain(content){
       <button id="send" type="submit">글쓰기</button>
     </form>
     <div>
-      <h2>게시판</h2>
+      <h2>패치노트</h2>
       <ul id="board">
       ${content}
       </ul>
@@ -157,6 +159,7 @@ fs.readdir(path.join(__dirname,'public','writeFile'),'utf8',(err,data)=>{
 
 
 const server = http.createServer((req,res)=>{
+  console.log(req.url);
 
   let url = req.url;
 
@@ -244,7 +247,9 @@ const server = http.createServer((req,res)=>{
       });
       req.on('end', ()=>{
         let modifyParse = qs.parse(body);
-        console.log(modifyParse);
+
+        let modiReferer = req.headers.referer.split('/')[3];
+        console.log(modiReferer);
       });
     } else {
       notFound(res);
