@@ -138,10 +138,34 @@ const mainTemp = function makeMain(content){
   return mainHtml;
 };
 
+const modiTemp =
+`<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글 수정</title>
+  </head>
+  <body>
+    <form action="/reWrite" method="POST">
+      <label for="title">제목</label><br>
+      <input type="text" id="title" name="title"><br><br>
+      <label for="content">내용</label><br>
+      <textarea name="content" id="content" cols="25" rows="15"></textarea><br><br>
+      <button id="send" type="submit">글쓰기</button>
+    </form>
+  </body>
+</html>`;
+
+
 // ! 폴더를 읽어내서 변수에 할당하기.
+
 let folderData = [];
 
 let liTag ='';
+
+// ! 수정을 위한 데이터를 잡기 위한 곳
+let modifyUrl = ''
 
 fs.readdir(path.join(__dirname,'public','writeFile'),'utf8',(err,data)=>{
   if(err){
@@ -241,16 +265,11 @@ const server = http.createServer((req,res)=>{
       });
 
     } else if (req.url === '/modify') {
-      let body = '';
-      req.on('data', (chunk)=>{
-        body += chunk.toString();
-      });
-      req.on('end', ()=>{
-        let modifyParse = qs.parse(body);
-
-        let modiReferer = req.headers.referer.split('/')[3];
-        console.log(modiReferer);
-      });
+      modifyUrl = '';
+      modifyUrl = req.headers.referer.split('/')[3]
+      console.log(modifyUrl);
+      res.writeHead(200,{"Content-Type":"text/html; charset=UTF-8"});
+      res.end(modiTemp);
     } else {
       notFound(res);
     }
