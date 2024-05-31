@@ -57,9 +57,7 @@ const server = http.createServer((req,res)=>{
       });
       req.on('end',()=>{
         const parsedData = qs.parse(body);
-        const title = parsedData.title;
-        const content = parsedData.content;
-        let convertData = temp.writeTemp(title,content);
+        let convertData = temp.writeTemp(parsedData.title,parsedData.content);
         
         let nowDate = today();
 
