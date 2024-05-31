@@ -158,30 +158,12 @@ const modiTemp =
 </html>`;
 
 
-// ! 폴더를 읽어내서 변수에 할당하기.
-
-let folderData = [];
-
-let liTag ='';
-
 // ! 수정을 위한 데이터를 잡기 위한 곳
 let modifyUrl = ''
 
-fs.readdir(path.join(__dirname,'public','writeFile'),'utf8',(err,data)=>{
-  if(err){
-    console.error("에러가 발생했습니다!" ,err);
-  }
-  folderData = data;
-  for(let i = 0; i < folderData.length; i++){
-    if(folderData[i].includes('.html')){
-      folderData[i] = folderData[i].split('.html')[0];
-      liTag += `<li><a href="${folderData[i]}.html">${folderData[i]}</a></li>` 
-    }
-  }
-});
-
 function updateTag(res) {
   liTag = '';
+  folderData = [];
   fs.readdir(path.join(__dirname,'public','writeFile'),'utf8',(err,data)=>{
     if(err){
       console.error("에러가 발생했습니다!" ,err);
