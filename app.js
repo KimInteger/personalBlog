@@ -107,6 +107,9 @@ const server = http.createServer((req,res)=>{
         });
 
       });
+    } else if (req.url === '/writeField') {
+      res.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+      res.end(temp.writeField);
     } else {
       resMo.notFound(res);
     }
