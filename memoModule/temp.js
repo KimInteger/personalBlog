@@ -44,6 +44,9 @@ const temp = {
           <ul id="board">
           ${content}
           </ul>
+          <form action="/writeField" method="POST">
+            <button type="submit">글쓰기</button>
+          </form>
         </div>
         <script src="./script.js"></script>
       </body>
