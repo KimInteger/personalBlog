@@ -180,6 +180,27 @@ fs.readdir(path.join(__dirname,'public','writeFile'),'utf8',(err,data)=>{
   }
 });
 
+function updateTag(res) {
+  liTag = '';
+  fs.readdir(path.join(__dirname,'public','writeFile'),'utf8',(err,data)=>{
+    if(err){
+      console.error("에러가 발생했습니다!" ,err);
+    }
+    folderData = data;
+
+    for(let i = 0; i < folderData.length; i++){
+      if(folderData[i].includes('.html')){
+        folderData[i] = folderData[i].split('.html')[0];
+        liTag += `<li><a href="${folderData[i]}.html">${folderData[i]}</a></li>` 
+      }
+    }
+
+    let mainIndex = mainTemp(liTag);
+    res.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+    res.end(mainIndex);
+  });
+}
+
 
 
 const server = http.createServer((req,res)=>{
@@ -229,10 +250,7 @@ const server = http.createServer((req,res)=>{
           if(err){
             console.error("에러가 발생했습니다 에러 코드 : ", err);
           } else {
-            liTag += `<li><a href="${nowDate}.html">${nowDate}</a></li>`
-            let mainIndex = mainTemp(liTag);
-            res.writeHead(200,{"Content-Type":"text/html; charset=UTF-8"});
-            res.end(mainIndex);
+            updateTag(res);
           }
         });
       });
