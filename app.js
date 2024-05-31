@@ -14,53 +14,11 @@ const temp = require('./memoModule/temp');
 
 const resMo = require('./memoModule/resMo');
 
-// ! contentType을 할당하기 위한 변수 mimeType을 초기화하고 할당.
+const fileUtills = require('./memoModule/fileUtills');
 
-const mimeType = {
-  '.html' : 'text/html; charset=UTF-8',
-  '.css' : 'text/css; charset-UTF-8',
-  '.js' : 'application/javascript; charset=UTF-8',
-  '.json' : 'application/json; charset=UTF-8',
-  '.ico' : 'img/x-icon',
-  '.png' : 'img/png'
-};
-
-const fileUtills = {
-  getFilepath : function(url){
-    let filePath = '';
-    if(url === '/'){
-      filePath = './public/index.html';
-    } else if (url.startsWith('/img')) {
-      filePath = './public/img' + url;
-    } else if (url.startsWith('/2024')){
-      filePath = './public/writeFile' + url;
-    } else {
-      filePath = './public' + url;
-    }
-    return decodeURI(filePath);
-  },
-
-  getExtention : function(filePath){
-    let ext = path.extname(filePath);
-    return ext.toLowerCase();
-  },
-
-  getContentType : function(ext){
-    let ct = '';
-    if(mimeType.hasOwnProperty(ext)){
-      ct = mimeType[ext];
-    } else {
-      ct = 'text/plain; charset=UTF-8';
-    }
-    return ct;
-  } 
-};
-
-
-
-
-// ! 수정을 위한 데이터를 잡기 위한 곳
+// ! 전역변수
 let modifyUrl = ''
+// * 수정위치를 잡을 변수 
 
 const server = http.createServer((req,res)=>{
   console.log(req.url);
