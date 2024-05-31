@@ -31,21 +31,25 @@ const server = http.createServer((req,res)=>{
 
   let contentType = fileUtills.getContentType(ext);
   if(req.method === 'GET'){
-    if(req.url === url){
-      fs.readFile(filePath, (err,data)=>{
-        if(err){
-          resMo.connectErr(res);
-          return err;
-        }
-        res.statusCode = 200;
-        res.setHeader("Content-Type", contentType);
-        res.write(data);
-        res.end();
-      });
-    } else if(req.url === '/favicon.ico'){
-      return;
+    if (req.url === '/') {
+      resMo.updateTag(res);
+    } else if (req.url === '/index.html') {
+      resMo.updateTag(res);
     } else {
-      resMo.notFound(res);
+      fs.readFile(filePath,(err,data)=>{
+        if(err){
+          if (err.code === 'ENOENT') {
+            resMo.notFound(res);
+            return;
+          } else {
+            resMo.connectErr(res);
+            return;
+          }
+        } else {
+          res.writeHead(200, {"Content-Type":contentType});
+          res.end(data);
+        }
+      });
     }
   } else if (req.method === 'POST'){
     console.log(req.url);
