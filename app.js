@@ -82,80 +82,80 @@ const fileUtills = {
 
 
 // ! html템플릿 관련 변수
+const temp = {
+  writeTemp : function(title,content){
+    const create = `
+    <!DOCTYPE html>
+    <html lang="ko">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>${title}</title>
+      </head>
+      <body>
+        <h1>${title}</h1>
+        <h3>${content}</h3>
+        <a href="../index.html">홈으로 돌아가기</a><br><br>
+        <form action="/modify" method="POST" style="display: inline">
+          <button type="submit">수정</button>
+        </form>
+        <form action="/delete" method="POST" style="display: inline">
+          <button type="submit">삭제</button>
+        </form>
+      </body>
+    </html>
+    `
+    return create;
+  },
+  
+  mainTemp : function(content){
+    const mainHtml = `
+    <!DOCTYPE html>
+    <html lang="ko">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>이것은블로그입니다.</title>
+      </head>
+      <body>
+        <form action="/create" method="POST" id="form">
+          <label for="title">제목</label><br>
+          <input type="text" id="title" name="title"><br><br>
+          <label for="content">내용</label><br>
+          <textarea name="content" id="content" cols="25" rows="15"></textarea><br><br>
+          <button id="send" type="submit">글쓰기</button>
+        </form>
+        <div>
+          <h2>패치노트</h2>
+          <ul id="board">
+          ${content}
+          </ul>
+        </div>
+        <script src="./script.js"></script>
+      </body>
+    </html>`;
+    return mainHtml;
+  },
 
-// * 생성되어 writeFile로 들어가는 html template
-const template = function makeTemplate(title,content) {
-const html =`
-<!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${title}</title>
-  </head>
-  <body>
-    <h1>${title}</h1>
-    <h3>${content}</h3>
-    <a href="../index.html">홈으로 돌아가기</a><br><br>
-    <form action="/modify" method="POST" style="display: inline">
-      <button type="submit">수정</button>
-    </form>
-    <form action="/delete" method="POST" style="display: inline">
-      <button type="submit">삭제</button>
-    </form>
-  </body>
-</html>
-`
-return html;
-};
-
-// * res.end()로 보여질 화면을 잡아온 index.html의 tempalte
-const mainTemp = function makeMain(content){
-  const mainHtml = `<!DOCTYPE html>
+  modiTemp : `
+  <!DOCTYPE html>
   <html lang="ko">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>이것은블로그입니다.</title>
-  </head>
-  <body>
-    <form action="/create" method="POST" id="form">
-      <label for="title">제목</label><br>
-      <input type="text" id="title" name="title"><br><br>
-      <label for="content">내용</label><br>
-      <textarea name="content" id="content" cols="25" rows="15"></textarea><br><br>
-      <button id="send" type="submit">글쓰기</button>
-    </form>
-    <div>
-      <h2>패치노트</h2>
-      <ul id="board">
-      ${content}
-      </ul>
-    </div>
-    <script src="./script.js"></script>
-  </body>
-  </html>`;
-  return mainHtml;
-};
-
-const modiTemp =
-`<!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>글 수정</title>
-  </head>
-  <body>
-    <form action="/reWrite" method="POST">
-      <label for="title">제목</label><br>
-      <input type="text" id="title" name="title"><br><br>
-      <label for="content">내용</label><br>
-      <textarea name="content" id="content" cols="25" rows="15"></textarea><br><br>
-      <button id="send" type="submit">글쓰기</button>
-    </form>
-  </body>
-</html>`;
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>글 수정</title>
+    </head>
+    <body>
+      <form action="/reWrite" method="POST">
+        <label for="title">제목</label><br>
+        <input type="text" id="title" name="title"><br><br>
+        <label for="content">내용</label><br>
+        <textarea name="content" id="content" cols="25" rows="15"></textarea><br><br>
+        <button id="send" type="submit">글쓰기</button>
+      </form>
+    </body>
+  </html>`
+}
 
 
 // ! 수정을 위한 데이터를 잡기 위한 곳
@@ -177,7 +177,7 @@ function updateTag(res) {
       }
     }
 
-    let mainIndex = mainTemp(liTag);
+    let mainIndex = temp.mainTemp(liTag);
     res.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
     res.end(mainIndex);
   });
@@ -224,7 +224,7 @@ const server = http.createServer((req,res)=>{
         const parsedData = qs.parse(body);
         const title = parsedData.title;
         const content = parsedData.content;
-        let convertData = template(title,content);
+        let convertData = temp.writeTemp(title,content);
         
         let nowDate = today();
 
@@ -251,7 +251,7 @@ const server = http.createServer((req,res)=>{
       modifyUrl = req.headers.referer.split('/')[3]
       console.log(modifyUrl);
       res.writeHead(200,{"Content-Type":"text/html; charset=UTF-8"});
-      res.end(modiTemp);
+      res.end(temp.modiTemp);
     } else if (req.url === '/reWrite') {
       let body = '';
       req.on('data',(chunk)=>{
@@ -260,7 +260,7 @@ const server = http.createServer((req,res)=>{
       req.on('end',()=>{
         let parsdRewrite = qs.parse(body);
 
-        let rewriteData = template(parsdRewrite.title, parsdRewrite.content);
+        let rewriteData = temp.writeTemp(parsdRewrite.title, parsdRewrite.content);
         fs.writeFile(path.join(__dirname,'public','writeFile',`${modifyUrl}`),rewriteData,(err)=>{
           if(err){
             console.error("에러가 발생했습니다 에러 코드 : ", err);
