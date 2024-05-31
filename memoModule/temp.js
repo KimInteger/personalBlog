@@ -7,15 +7,20 @@ const temp = {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>${title}</title>
+        <style>
+        form {
+          display: inline;
+        }
+        </style>
       </head>
       <body>
         <h1>${title}</h1>
         <h3>${content}</h3>
         <a href="../index.html">홈으로 돌아가기</a><br><br>
-        <form action="/modify" method="POST" style="display: inline">
+        <form action="/modify" method="POST">
           <button type="submit">수정</button>
         </form>
-        <form action="/delete" method="POST" style="display: inline">
+        <form action="/delete" method="POST">
           <button type="submit">삭제</button>
         </form>
       </body>

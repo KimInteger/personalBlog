@@ -1,20 +1,26 @@
-<!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${title}</title>
-  </head>
-  <body>
-    <h1>패치노트</h1>
-    <h3>글 삭제기능을 기획중입니다.</h3>
-    <a href="../index.html">홈으로 돌아가기</a>
-    <form action="/modify" method="POST" style="display: inline">
-      <button type="submit">수정</button>
-    </form>
-    <form action="/delete" method="POST" style="display: inline">
-      <button type="submit">삭제</button>
-    </form>
-  </body>
-</html>
 
+    <!DOCTYPE html>
+    <html lang="ko">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>패치노트</title>
+        <style>
+          form {
+            display: inline;
+          }
+        </style>
+      </head>
+      <body>
+        <h1>패치노트</h1>
+        <h3>글삭제기능을 추가했습니다.</h3>
+        <a href="../index.html">홈으로 돌아가기</a><br><br>
+        <form action="/modify" method="POST">
+          <button type="submit">수정</button>
+        </form>
+        <form action="/delete" method="POST">
+          <button type="submit">삭제</button>
+        </form>
+      </body>
+    </html>
+    
