@@ -1,4 +1,5 @@
-getGETMethod = function(req,res){
+function getGETMethod(req,res){
+
   const fileUtills = require('./fileUtills');
   const fs = require('node:fs');
   const resMo = require('./resMo');
@@ -8,7 +9,7 @@ getGETMethod = function(req,res){
   let filePath = fileUtills.getFilepath(url);
 
   let ext = fileUtills.getExtention(filePath);
-  
+
   let contentType = fileUtills.getContentType(ext);
 
   if (req.url === '/') {
@@ -31,6 +32,6 @@ getGETMethod = function(req,res){
       }
     });
   }
-}
+} 
 
-module.exports = getGETMethod();
+module.exports = getGETMethod;
