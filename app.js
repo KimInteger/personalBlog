@@ -16,6 +16,8 @@ const resMo = require('./memoModule/resMo');
 
 const fileUtills = require('./memoModule/fileUtills');
 
+const getGETMethod = require('./memoModule/GETmethod');
+
 // ! 전역변수
 let modifyUrl = ''
 // * 수정위치를 잡을 변수 
@@ -23,34 +25,8 @@ let modifyUrl = ''
 const server = http.createServer((req,res)=>{
   console.log(req.url);
 
-  let url = req.url;
-
-  let filePath = fileUtills.getFilepath(url);
-
-  let ext = fileUtills.getExtention(filePath);
-
-  let contentType = fileUtills.getContentType(ext);
   if(req.method === 'GET'){
-    if (req.url === '/') {
-      resMo.updateTag(res);
-    } else if (req.url === '/index.html') {
-      resMo.updateTag(res);
-    } else {
-      fs.readFile(filePath,(err,data)=>{
-        if(err){
-          if (err.code === 'ENOENT') {
-            resMo.notFound(res);
-            return;
-          } else {
-            resMo.connectErr(res);
-            return;
-          }
-        } else {
-          res.writeHead(200, {"Content-Type":contentType});
-          res.end(data);
-        }
-      });
-    }
+    getGETMethod(req,res);
   } else if (req.method === 'POST'){
     console.log(req.url);
 
