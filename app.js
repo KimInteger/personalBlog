@@ -14,8 +14,6 @@ const temp = require('./memoModule/temp');
 
 const resMo = require('./memoModule/resMo');
 
-const fileUtills = require('./memoModule/fileUtills');
-
 const getGETMethod = require('./memoModule/GETmethod');
 
 // ! 전역변수
@@ -24,12 +22,9 @@ let modifyUrl = ''
 
 const server = http.createServer((req,res)=>{
   console.log(req.url);
-
   if(req.method === 'GET'){
     getGETMethod(req,res);
   } else if (req.method === 'POST'){
-    console.log(req.url);
-
     if(req.url === '/create'){
       let body = '';
       req.on('data', (chunk)=>{
