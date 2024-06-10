@@ -1,1 +1,4 @@
-console.log('getMethod.js생성');
+getGETMethod = function(req,res){
+  const fileUtills = require('./fileUtills');
+  const fs = require('node:fs');
+}
