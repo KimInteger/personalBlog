@@ -1,0 +1,1 @@
+console.log('getMethod.js생성');
