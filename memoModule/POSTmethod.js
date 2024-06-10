@@ -1,0 +1,1 @@
+console.log('POST를 아십니가?');
